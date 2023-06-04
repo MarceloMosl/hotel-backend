@@ -13,9 +13,16 @@ async function create(data: Prisma.UserUncheckedCreateInput) {
   });
 }
 
+async function createSession(userId: number, token: string) {
+  return prisma.session.create({
+    data: { userId, token },
+  });
+}
+
 const userRepository = {
   findByEmail,
   create,
+  createSession,
 };
 
 export default userRepository;

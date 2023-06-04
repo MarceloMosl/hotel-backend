@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import httpStatus from "http-status";
+import httpStatus, { OK } from "http-status";
 import userService from "@/services/user-service";
 
 export async function usersPost(req: Request, res: Response) {
@@ -16,5 +16,15 @@ export async function usersPost(req: Request, res: Response) {
       return res.status(httpStatus.CONFLICT).send(error);
     }
     return res.status(httpStatus.BAD_REQUEST).send(error);
+  }
+}
+
+export async function signIn(req: Request, res: Response) {
+  const { email, password } = req.body;
+  try {
+    const token = await userService.signIn(email, password);
+    return res.status(OK).send({ token });
+  } catch (error) {
+    return res.send(error);
   }
 }
