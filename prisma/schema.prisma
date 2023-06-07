@@ -60,6 +60,8 @@ model Booking {
     id        Int      @id @default(autoincrement())
     userId    Int
     roomId    Int
+    startAt   DateTime
+    endsAt    DateTime
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
     Room      Room     @relation(fields: [roomId], references: [id], onDelete: Cascade)
